@@ -1,6 +1,6 @@
 name: Update Merge Commit Title
 
-on: 
+on:
   pull_request:
     types: [closed]
 
