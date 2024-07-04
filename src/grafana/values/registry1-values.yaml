@@ -1,0 +1,21 @@
+image:
+  registry: registry1.dso.mil
+  repository: ironbank/opensource/grafana/grafana
+  tag: 11.1.0
+
+initChownData:
+  image:
+    registry: registry1.dso.mil
+    repository: ironbank/redhat/ubi/ubi9-minimal
+    tag: 9.4
+
+downloadDashboardsImage:
+  registry: registry1.dso.mil
+  repository: ironbank/redhat/ubi/ubi9-minimal
+  tag: 9.4
+
+sidecar:
+  image:
+    registry: registry1.dso.mil
+    repository: ironbank/kiwigrid/k8s-sidecar
+    tag: 1.27.4
