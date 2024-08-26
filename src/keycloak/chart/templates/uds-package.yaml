@@ -10,7 +10,7 @@ spec:
         app.kubernetes.io/component: http
       podSelector:
         app.kubernetes.io/name: keycloak
-      targetPort: 8080
+      targetPort: 80
       portName: http
       description: Metrics
 
