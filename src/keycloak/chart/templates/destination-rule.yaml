@@ -10,5 +10,5 @@ spec:
       consistentHash:
         httpCookie:
           name: {{ include "keycloak.fullname" . }}-session
-          ttl: 0s
+          ttl: 1s
 {{- end }}
