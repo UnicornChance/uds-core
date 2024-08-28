@@ -81,7 +81,7 @@ jobs:
 
   # This job triggers a separate workflow for each changed source package, if any.
   run-package-test:
-    needs: check-paths
+    needs: [check-paths, check-only-docs-changes]
     name: Schedule
     strategy:
       matrix:
