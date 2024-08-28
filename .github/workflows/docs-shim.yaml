@@ -22,24 +22,24 @@ jobs:
   check-only-docs-changes:
     runs-on: ubuntu-latest
     outputs:
-      only_docs_changed: ${{ steps.set_output.outputs.only_docs_changed }}
+      docs_only: ${{ steps.set_output.outputs.docs_only }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Check for non-docs changes
         id: docs_check
-        uses: ./.github/actions/check-non-docs-changes
+        uses: ./.github/actions/docs-only
         with:
           base_ref: ${{ github.base_ref }}
 
       - name: Set outputs
         id: set_output
-        run: echo "only_docs_changed=${{ steps.docs_check.outputs.non_docs_changed }}" >> $GITHUB_OUTPUT
+        run: echo "docs_only=${{ steps.docs_check.outputs.docs_only }}" >> $GITHUB_OUTPUT
 
   lint-check:
     needs: check-only-docs-changes
-    if: ${{ needs.check-only-docs-changes.outputs.only_docs_changed == 'false' }}
+    if: ${{ needs.check-only-docs-changes.outputs.docs_only == 'true' }}
     name: Lint Check(Simulated)
     runs-on: ubuntu-latest
     steps:
@@ -48,7 +48,7 @@ jobs:
 
   check-paths:
     needs: check-only-docs-changes
-    if: ${{ needs.check-only-docs-changes.outputs.only_docs_changed == 'false' }}
+    if: ${{ needs.check-only-docs-changes.outputs.docs_only == 'true' }}
     name: Check Paths(Simulated)
     runs-on: ubuntu-latest
     steps:
@@ -57,7 +57,7 @@ jobs:
 
   run-package-test:
     needs: check-only-docs-changes
-    if: ${{ needs.check-only-docs-changes.outputs.only_docs_changed == 'false' }}
+    if: ${{ needs.check-only-docs-changes.outputs.docs_only == 'true' }}
     name: Package Test(Simulated)
     runs-on: ubuntu-latest
     steps:
@@ -66,7 +66,7 @@ jobs:
 
   evaluate-package-compliance:
     needs: check-only-docs-changes
-    if: ${{ needs.check-only-docs-changes.outputs.only_docs_changed == 'false' }}
+    if: ${{ needs.check-only-docs-changes.outputs.docs_only == 'true' }}
     name: Compliance Test(Simulated)
     runs-on: ubuntu-latest
     steps:
@@ -76,7 +76,7 @@ jobs:
   # slim-dev-test.yaml
   test:
     needs: check-only-docs-changes
-    if: ${{ needs.check-only-docs-changes.outputs.only_docs_changed == 'false' }}
+    if: ${{ needs.check-only-docs-changes.outputs.docs_only == 'true' }}
     name: Slim Dev Test(Simulated)
     runs-on: ubuntu-latest
     steps:
