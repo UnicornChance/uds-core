@@ -1,6 +1,7 @@
 name: Test packages
 
 on:
+  # Manual trigger
   workflow_dispatch:
     inputs:
       package:
@@ -15,11 +16,7 @@ on:
         type: string
         description: "The type of test to perform"
         required: true
-      docs_only:
-        type: string
-        description: "Flag indicating if only docs were changed"
-        required: true
-
+    # Triggered by pull-request-conditionals.yaml
   workflow_call:
     inputs:
       package:
@@ -34,10 +31,6 @@ on:
         type: string
         description: "The type of test to perform"
         required: true
-      docs_only:
-        type: string
-        description: "Flag indicating if only docs were changed"
-        required: true
 
 permissions:
   contents: read
@@ -47,7 +40,6 @@ permissions:
 jobs:
   test:
     runs-on: "${{ inputs.package == 'all' && 'uds-ubuntu-big-boy-8-core' || 'ubuntu-latest'}}"
-    if: ${{ inputs.docs_only == 'false' }}
     timeout-minutes: 30
     name: Test
     env:
@@ -97,11 +89,3 @@ jobs:
         uses: ./.github/actions/save-logs
         with:
           suffix: -${{ inputs.test_type }}-${{ inputs.package }}-${{ inputs.flavor }}
-
-  docs-only-test:
-    if: ${{ inputs.docs_only == 'true' }}
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check Paths
-        run: echo "Simulating package test job - Success!"
