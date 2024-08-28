@@ -25,7 +25,7 @@ runs:
       shell: bash
       run: |
         if grep -qvE '\.(md|jpg|png|gif|svg)$|^docs/|^.vscode/|^.gitignore$|^renovate.json$|^.release-please-config.json$|^release-please-config.json$|^CODEOWNERS$|^LICENSE$' changed_files.txt; then
-          echo "docs_only=true" >> $GITHUB_OUTPUT
-        else
           echo "docs_only=false" >> $GITHUB_OUTPUT
+        else
+          echo "docs_only=true" >> $GITHUB_OUTPUT
         fi
