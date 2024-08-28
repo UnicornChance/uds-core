@@ -13,6 +13,11 @@ on:
       - packages/slim-dev/**
       - bundles/k3d-slim-dev/**
       - .github/workflows/slim-dev**
+      - "!**/*.md"
+      - "!**.jpg"
+      - "!**.png"
+      - "!**.gif"
+      - "!**.svg"
 
 # Permissions for the GITHUB_TOKEN used by the workflow.
 permissions:
@@ -32,7 +37,6 @@ concurrency:
 
 jobs:
   test:
-    needs: check-only-non-docs-changes
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
