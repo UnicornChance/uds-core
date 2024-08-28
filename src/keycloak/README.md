@@ -1,5 +1,4 @@
 ## Keycloak
-test
 
 [Keycloak](https://www.keycloak.org/) is an open source IdAM stack written in Java. This Keycloak source package provides an implementation of Keycloak and is intended to be used in conjunction with the [UDS Identity Config](https://github.com/defenseunicorns/uds-identity-config) image and the [UDS Operator](../pepr/operator/README.md).
 
