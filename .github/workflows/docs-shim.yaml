@@ -25,7 +25,7 @@ jobs:
       matrix:
         package: [all]
         flavor: [upstream, registry1, unicorn]
-        test_type: [install,upgrade]
+        test_type: [install, upgrade]
     uses: ./.github/workflows/test-shim.yaml
     with:
       package: ${{ matrix.package }}
