@@ -16,7 +16,7 @@ on:
         description: "The type of test to perform"
         required: true
       docs_only:
-        type: boolean
+        type: string
         description: "Flag indicating if only docs were changed"
         required: true
 
@@ -35,7 +35,7 @@ on:
         description: "The type of test to perform"
         required: true
       docs_only:
-        type: boolean
+        type: string
         description: "Flag indicating if only docs were changed"
         required: true
 
