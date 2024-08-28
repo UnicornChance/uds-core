@@ -5,20 +5,6 @@ on:
   pull_request:
     # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
     types: [milestoned, opened, reopened, synchronize]
-    paths-ignore:
-      - "**.md"
-      - "**.jpg"
-      - "**.png"
-      - "**.gif"
-      - "**.svg"
-      - docs/**
-      - .vscode/**
-      - .gitignore
-      - renovate.json
-      - .release-please-config.json
-      - release-please-config.json
-      - CODEOWNERS
-      - LICENSE
 
 # Permissions for the GITHUB_TOKEN used by the workflow.
 permissions:
@@ -75,6 +61,24 @@ jobs:
           filters: .github/filters.yaml
           predicate-quantifier: every
 
+  check-only-docs-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      docs_only: ${{ steps.set_output.outputs.docs_only }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check for non-docs changes
+        id: docs_check
+        uses: ./.github/actions/docs-only
+        with:
+          base_ref: ${{ github.base_ref }}
+
+      - name: Set outputs
+        id: set_output
+        run: echo "docs_only=${{ steps.docs_check.outputs.docs_only }}" >> $GITHUB_OUTPUT
+
   # This job triggers a separate workflow for each changed source package, if any.
   run-package-test:
     needs: check-paths
@@ -100,6 +104,7 @@ jobs:
       package: ${{ matrix.package }}
       flavor: ${{ matrix.flavor }}
       test_type: ${{ matrix.test_type }}
+      docs_only: ${{ needs.check-only-docs-changes.outputs.docs_only }}
     secrets: inherit # Inherits all secrets from the parent workflow.
 
   evaluate-package-compliance:

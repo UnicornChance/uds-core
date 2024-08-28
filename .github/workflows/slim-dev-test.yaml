@@ -31,7 +31,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check-only-non-docs-changes:
+  check-only-docs-changes:
     runs-on: ubuntu-latest
     outputs:
       docs_only: ${{ steps.set_output.outputs.docs_only }}
@@ -51,7 +51,7 @@ jobs:
 
   test:
     needs: check-only-non-docs-changes
-    if: ${{ needs.check-only-non-docs-changes.outputs.docs_only == 'false' }}
+    if: ${{ needs.check-only-docs-changes.outputs.docs_only == 'false' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
