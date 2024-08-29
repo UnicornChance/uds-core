@@ -82,7 +82,6 @@ jobs:
       package: ${{ matrix.package }}
       flavor: ${{ matrix.flavor }}
       test_type: ${{ matrix.test_type }}
-      # docs_only: ${{ needs.check-only-docs-changes.outputs.docs_only }}
     secrets: inherit # Inherits all secrets from the parent workflow.
 
   evaluate-package-compliance:

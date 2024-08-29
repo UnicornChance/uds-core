@@ -36,11 +36,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # This job runs the slim-dev bundle create/deploy process.
   test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v3
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Environment setup
         uses: ./.github/actions/setup
       - name: Deploy Slim Dev Bundle
