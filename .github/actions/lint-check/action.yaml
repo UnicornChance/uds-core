@@ -11,7 +11,8 @@ runs:
     - name: Set up Homebrew
       uses: Homebrew/actions/setup-homebrew@master
     - name: Install UDS CLI
-      shell: bash
       run: brew install defenseunicorns/tap/uds@0.14.2
+      shell: bash
     - name: Run Formatting Checks
       run: uds run lint-check --no-progress
+      shell: bash
